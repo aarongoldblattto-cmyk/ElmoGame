@@ -33,7 +33,7 @@ pygame.event.set_grab(True)
 ELMO_WIDTH, ELMO_HEIGHT = WIDTH, HEIGHT
 image = pygame.transform.smoothscale(image, (ELMO_WIDTH, ELMO_HEIGHT))
 
-FLASH_INTERVAL_MS = 200
+FLASH_INTERVAL_MS = 50
 next_toggle = pygame.time.get_ticks() + FLASH_INTERVAL_MS
 show_elmo = True
 
