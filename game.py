@@ -33,7 +33,7 @@ pygame.event.set_grab(True)
 ELMO_WIDTH, ELMO_HEIGHT = WIDTH, HEIGHT
 image = pygame.transform.smoothscale(image, (ELMO_WIDTH, ELMO_HEIGHT))
 
-FLASH_INTERVAL_MS = 1000
+FLASH_INTERVAL_MS = 200
 next_toggle = pygame.time.get_ticks() + FLASH_INTERVAL_MS
 show_elmo = True
 
@@ -45,7 +45,6 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             times += 1
-            FLASH_INTERVAL_MS -= 200
             pygame.display.set_caption("Tried to close the window " + str(times) + " times")
 
     now = pygame.time.get_ticks()
