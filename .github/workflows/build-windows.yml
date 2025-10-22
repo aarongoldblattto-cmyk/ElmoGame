@@ -23,7 +23,8 @@ jobs:
 
       - name: Build EXE
         run: |
-          pyinstaller --onefile --windowed game.py
+          pyinstaller --onefile --windowed --add-data "assets;assets" game.py
+
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
