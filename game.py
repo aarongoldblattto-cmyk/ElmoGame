@@ -45,13 +45,13 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             times += 1
+            FLASH_INTERVAL_MS -= 200
             pygame.display.set_caption("Tried to close the window " + str(times) + " times")
 
     now = pygame.time.get_ticks()
     if now >= next_toggle:
         show_elmo = not show_elmo
         next_toggle = now + FLASH_INTERVAL_MS
-        FLASH_INTERVAL_MS -= 200
         if hand == 0:
             hand = 3
             pygame.mouse.set_pos((1300, 120))
