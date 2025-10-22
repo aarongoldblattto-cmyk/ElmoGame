@@ -13,20 +13,27 @@ def resource_path(relative_path):
 
 pygame.init()
 
+info = pygame.display.Info()
+
+hand = 0
+
 # Load Elmo image from local assets folder
 image = pygame.image.load(resource_path("assets/elmo.png"))
 
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = info.current_w, info.current_h
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Tried to close the window 0 times")
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
+pygame.event.set_grab(True)
+
+
 ELMO_WIDTH, ELMO_HEIGHT = WIDTH, HEIGHT
 image = pygame.transform.smoothscale(image, (ELMO_WIDTH, ELMO_HEIGHT))
 
-FLASH_INTERVAL_MS = 5000
+FLASH_INTERVAL_MS = 1000
 next_toggle = pygame.time.get_ticks() + FLASH_INTERVAL_MS
 show_elmo = True
 
@@ -39,13 +46,26 @@ while True:
         if event.type == pygame.QUIT:
             times += 1
             pygame.display.set_caption("Tried to close the window " + str(times) + " times")
-            FLASH_INTERVAL_MS -= 100
 
     now = pygame.time.get_ticks()
     if now >= next_toggle:
         show_elmo = not show_elmo
         next_toggle = now + FLASH_INTERVAL_MS
+        FLASH_INTERVAL_MS -= 200
+        if hand == 0:
+            hand = 3
+            pygame.mouse.set_pos((1300, 120))
 
+        elif hand == 1:
+            hand = 4
+            pygame.mouse.set_pos((200, 120))
+
+        elif hand == 3:
+            hand = 1
+
+        elif hand == 4:
+            hand = 0
+        
     screen.fill(BLACK if show_elmo else WHITE)
 
     if show_elmo:
