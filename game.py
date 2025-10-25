@@ -1,6 +1,8 @@
 import pygame
 import os
 import sys
+import random 
+import pyautogui
 
 def resource_path(relative_path):
     """Get absolute path to assets (works with PyInstaller)."""
@@ -33,7 +35,7 @@ pygame.event.set_grab(True)
 ELMO_WIDTH, ELMO_HEIGHT = WIDTH, HEIGHT
 image = pygame.transform.smoothscale(image, (ELMO_WIDTH, ELMO_HEIGHT))
 
-FLASH_INTERVAL_MS = 50
+FLASH_INTERVAL_MS = 10
 next_toggle = pygame.time.get_ticks() + FLASH_INTERVAL_MS
 show_elmo = True
 
@@ -41,16 +43,24 @@ clock = pygame.time.Clock()
 FPS = 60
 times = 0
 
-while True:
+running = True
+
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             times += 1
             pygame.display.set_caption("Tried to close the window " + str(times) + " times")
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_h:  # H key pressed closes the app
+                running = False
 
     now = pygame.time.get_ticks()
     if now >= next_toggle:
         show_elmo = not show_elmo
         next_toggle = now + FLASH_INTERVAL_MS
+        ARROWS = ['up', 'down']
+        key = random.choice(ARROWS)
+        pyautogui.press(key)
         if hand == 0:
             hand = 3
             pygame.mouse.set_pos((1300, 120))
@@ -64,6 +74,8 @@ while True:
 
         elif hand == 4:
             hand = 0
+
+        
         
     screen.fill(BLACK if show_elmo else WHITE)
 
@@ -72,3 +84,6 @@ while True:
 
     pygame.display.flip()
     clock.tick(FPS)
+
+# clean shutdown
+pygame.quit()

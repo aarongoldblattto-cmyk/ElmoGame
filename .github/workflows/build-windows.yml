@@ -19,12 +19,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pygame pyinstaller
+          pip install pygame pyinstaller pyautogui pillow pyscreeze pymsgbox mouseinfo pygetwindow
+
 
       - name: Build EXE
         run: |
-          pyinstaller --onefile --windowed --add-data "assets;assets" game.py
-
+          pyinstaller --onefile --windowed --add-data "assets;assets" \
+          --hidden-import=pyautogui --hidden-import=pyscreeze --hidden-import=pymsgbox \
+          --hidden-import=mouseinfo --hidden-import=pygetwindow game.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
